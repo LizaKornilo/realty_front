@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateTagDto } from '../models/CreateTagDto';
+import type { Tag } from '../models/Tag';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,12 +12,12 @@ export class TagsService {
 
     /**
      * @param requestBody
-     * @returns any
+     * @returns Tag
      * @throws ApiError
      */
     public static tagControllerCreateOne(
         requestBody: CreateTagDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Tag> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/tags',
@@ -26,10 +27,10 @@ export class TagsService {
     }
 
     /**
-     * @returns any
+     * @returns Tag
      * @throws ApiError
      */
-    public static tagControllerReadAll(): CancelablePromise<any> {
+    public static tagControllerReadAll(): CancelablePromise<Array<Tag>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/tags',

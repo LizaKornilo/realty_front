@@ -1,0 +1,7 @@
+export const HOME_ROUTE = '/home'
+export const DWELLING_ROUTE = '/dwelling'
+export const REGISTRATION_ROUTE = '/registration'
+export const LOGIN_ROUTE = '/login'
+export const USER_ROUTE = '/user'
+export const OWNER_ROUTE = '/owner'
+export const ADMIN_ROUTE = '/admin'

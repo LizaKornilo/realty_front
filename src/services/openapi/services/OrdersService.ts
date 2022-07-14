@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateOrderDto } from '../models/CreateOrderDto';
+import type { Order } from '../models/Order';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,12 +12,12 @@ export class OrdersService {
 
     /**
      * @param requestBody
-     * @returns any
+     * @returns Order
      * @throws ApiError
      */
     public static orderControllerCreate(
         requestBody: CreateOrderDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Order> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/orders',

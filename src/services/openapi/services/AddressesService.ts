@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateAddressDto } from '../models/CreateAddressDto';
+import type { Street } from '../models/Street';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,12 +12,12 @@ export class AddressesService {
 
     /**
      * @param requestBody
-     * @returns any
+     * @returns Street
      * @throws ApiError
      */
     public static addressControllerCreateAddress(
         requestBody: CreateAddressDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Street> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/addresses',

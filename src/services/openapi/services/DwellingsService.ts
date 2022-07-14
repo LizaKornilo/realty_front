@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { CreateDwellingDto } from '../models/CreateDwellingDto';
+import type { Dwelling } from '../models/Dwelling';
 import type { SearchDto } from '../models/SearchDto';
 import type { UpdateDwellingDto } from '../models/UpdateDwellingDto';
 
@@ -13,12 +14,12 @@ export class DwellingsService {
 
     /**
      * @param formData
-     * @returns any
+     * @returns Dwelling
      * @throws ApiError
      */
     public static dwellingControllerCreateOne(
         formData: CreateDwellingDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Dwelling> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/dwellings',
@@ -28,10 +29,10 @@ export class DwellingsService {
     }
 
     /**
-     * @returns any
+     * @returns Dwelling
      * @throws ApiError
      */
-    public static dwellingControllerReadAll(): CancelablePromise<any> {
+    public static dwellingControllerReadAll(): CancelablePromise<Array<Dwelling>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/dwellings',
@@ -40,12 +41,12 @@ export class DwellingsService {
 
     /**
      * @param id
-     * @returns any
+     * @returns Dwelling
      * @throws ApiError
      */
     public static dwellingControllerReadOne(
         id: number,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Dwelling> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/dwellings/{id}',
@@ -58,13 +59,13 @@ export class DwellingsService {
     /**
      * @param id
      * @param formData
-     * @returns any
+     * @returns Dwelling
      * @throws ApiError
      */
     public static dwellingControllerUpdateOne(
         id: number,
         formData: UpdateDwellingDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Dwelling> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/dwellings/{id}',
@@ -95,12 +96,12 @@ export class DwellingsService {
 
     /**
      * @param requestBody
-     * @returns any
+     * @returns Dwelling
      * @throws ApiError
      */
     public static dwellingControllerSearch(
         requestBody: SearchDto,
-    ): CancelablePromise<any> {
+    ): CancelablePromise<Array<Dwelling>> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/dwellings/search',
