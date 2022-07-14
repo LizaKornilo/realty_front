@@ -1,9 +1,12 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 const DwellingPage = () => {
+  const { id }: {id: string} = useParams()
+
   return (
       <div>
-          DwellingPage (by id)
+          DwellingPage. ID: {id}
       </div>
   )
 }
