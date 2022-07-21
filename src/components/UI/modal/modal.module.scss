@@ -19,7 +19,7 @@
 }
 
 .modal {
-  padding: 24px;
+  padding: 30px;
   border-radius: 8px;
   background-color: #fff;
   width: auto;
@@ -31,5 +31,7 @@
     top: 16px;
     right: 16px;
     cursor: pointer;
+    height: 16px;
+    width: 16px;
   }
 }

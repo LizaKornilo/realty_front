@@ -11,6 +11,7 @@ import {
   openLoginRegisterModalActionCreator
 } from '../../store/action-creators'
 import Modal from '../UI/modal/modal'
+import SvgSelector, { svgIds } from '../svg-selector'
 
 const NavBar = () => {
   const userTokenPayload = useSelector((state: RootState) => state.userReducer.userTokenPayload)
@@ -41,7 +42,9 @@ const NavBar = () => {
               <Link className={styles.navbar__item} to={DWELLINGS_ROUTE}>Dwellings</Link>
             </div>
             <div className={styles.navbar__central}>
-              <Link className={styles.navbar__item} to={DWELLINGS_ROUTE}>LOGO</Link>
+              <Link to={DWELLINGS_ROUTE}>
+                  <SvgSelector id={svgIds.SIMPLE_LOGO} classNames={styles.navbar__logo} />
+              </Link>
             </div>
             <div className={styles['navbar__right-items']}>
               {

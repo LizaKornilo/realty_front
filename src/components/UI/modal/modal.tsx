@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
-import './modal.scss'
+import styles from './modal.module.scss'
+import SvgSelector, { svgIds } from '../../svg-selector'
 
 type Props = {
     isOpen: boolean,
@@ -9,14 +10,12 @@ type Props = {
 
 function Modal ({ isOpen, close, children }: Props) {
   return (
-        <div className={`overlay ${isOpen && 'overlay_is-open'}`} onClick={() => close()}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
-                <div className="modal__close-btn">
-                    <div onClick={() => close()}>x</div>
-                 </div>
-                {children}
-            </div>
-        </div>
+      <div className={`${styles.overlay} ${isOpen && styles['overlay_is-open']}`} onClick={() => close()}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+              <SvgSelector id={svgIds.CLOSE} onClick={() => close()} classNames={styles['modal__close-btn']} />
+              {children}
+          </div>
+      </div>
   )
 }
 
