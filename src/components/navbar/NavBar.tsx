@@ -1,62 +1,62 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
-  ADMIN_ROUTE,
-  HOME_ROUTE,
-  LOGIN_ROUTE,
-  OWNER_ROUTE,
-  REGISTRATION_ROUTE,
-  USER_ROUTE
+  DWELLINGS_ROUTE
 } from '../../pages/consts'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/reducers'
-import { Roles } from '../../services/openapi'
-import { removeToken } from '../../api/token.service'
-import { USER_RESET } from '../../store/actions'
+import styles from './NavBar.module.scss'
+import {
+  closeLoginRegisterModalActionCreator,
+  openLoginRegisterModalActionCreator
+} from '../../store/action-creators'
+import Modal from '../UI/modal/modal'
 
 const NavBar = () => {
   const userTokenPayload = useSelector((state: RootState) => state.userReducer.userTokenPayload)
-  const role = useSelector((state: RootState) => state.userReducer.userTokenPayload?.role.value)
+  const loginRegisterModalIsOpen = useSelector((state: RootState) => state.modalsReducer.loginRegisterModalIsOpen)
 
-  const history = useHistory()
   const dispatch = useDispatch()
 
-  const logOut = () => {
-    removeToken()
-    dispatch({ type: USER_RESET })
-    history.push('/')
+  // const logOut = () => {
+  //   removeToken()
+  //   dispatch(userResetActionCreator())
+  //   history.push('/')
+  // }
+
+  const openLoginRegisterModal = () => {
+    dispatch(openLoginRegisterModalActionCreator())
+  }
+
+  const closeLoginRegisterModal = () => {
+    dispatch(closeLoginRegisterModalActionCreator())
   }
 
   return (
-      <div>
-          <Link to={HOME_ROUTE}>HOME</Link>
-
-          {
-              role === Roles.USER && (
-                  <Link to={USER_ROUTE}>USER</Link>
-              )
-          }
-          {
-              role === Roles.OWNER && (
-                  <Link to={OWNER_ROUTE}>OWNER</Link>
-              )
-          }
-          {
-              role === Roles.ADMIN && (
-                  <Link to={ADMIN_ROUTE}>ADMIN</Link>
-              )
-          }
-
-          {
-              !userTokenPayload
-                ? <>
-                    <Link to={REGISTRATION_ROUTE}>SIGN IN</Link>
-                    <Link to={LOGIN_ROUTE}>LOG IN</Link>
-                  </>
-                : <button onClick={() => logOut()}>LOG OUT</button>
-          }
-
+     <>
+       <div className={styles.navbar}>
+        <div className={'container'}>
+          <div className={styles['navbar__content-wrapper']}>
+            <div className={styles['navbar__left-items']}>
+              <Link className={styles.navbar__item} to={DWELLINGS_ROUTE}>Dwellings</Link>
+            </div>
+            <div className={styles.navbar__central}>
+              <Link className={styles.navbar__item} to={DWELLINGS_ROUTE}>LOGO</Link>
+            </div>
+            <div className={styles['navbar__right-items']}>
+              {
+                !userTokenPayload
+                  ? <a className={styles.navbar__item} onClick={openLoginRegisterModal}>Sign in</a>
+                  : <a className={styles.navbar__item}>user_icon</a>
+              }
+            </div>
+          </div>
+        </div>
       </div>
+       <Modal isOpen={loginRegisterModalIsOpen} close={closeLoginRegisterModal}>
+         loginRegisterModalContent
+       </Modal>
+     </>
   )
 }
 
