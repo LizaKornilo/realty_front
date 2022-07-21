@@ -19,9 +19,6 @@ const AppRouter = () => {
       <Switch>
           <div>
               <NavBar />
-              <Route exact path="/">
-                  <Redirect to={DWELLINGS_ROUTE}/>
-              </Route>
               <Route exact path={DWELLINGS_ROUTE} component={DwellingsPage} />
               <Route exact path={DWELLING_ROUTE + '/:id'} component={DwellingPage} />
               {
@@ -38,6 +35,9 @@ const AppRouter = () => {
               }
               <Route path={NOT_FOUND_ROUTE} component={NotFoundPage} />
               <Redirect to={NOT_FOUND_ROUTE} />
+              <Route exact path="/">
+                  <Redirect to={DWELLINGS_ROUTE}/>
+              </Route>
           </div>
       </Switch>
   )
