@@ -50,7 +50,10 @@ const NavBar = () => {
               {
                 !userTokenPayload
                   ? <a className={styles.navbar__item} onClick={openLoginRegisterModal}>Sign in</a>
-                  : <a className={styles.navbar__item}>user_icon</a>
+                  : <SvgSelector
+                        id={svgIds.USER_ICON}
+                        classNames={styles['navbar__user-icon']}
+                    />
               }
             </div>
           </div>
