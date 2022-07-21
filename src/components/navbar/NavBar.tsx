@@ -1,29 +1,50 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { ReactNode, useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import {
-  DWELLINGS_ROUTE
+  DWELLINGS_ROUTE,
+  OWNER_ROUTE,
+  USER_ROUTE,
+  ADMIN_ROUTE
 } from '../../pages/consts'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store/reducers'
 import styles from './NavBar.module.scss'
 import {
   closeLoginRegisterModalActionCreator,
-  openLoginRegisterModalActionCreator
+  openLoginRegisterModalActionCreator,
+  userResetActionCreator
 } from '../../store/action-creators'
 import Modal from '../UI/modal/modal'
 import SvgSelector, { svgIds } from '../svg-selector'
+import Dropdown from '../UI/dropdown/dropdown'
+import { Roles } from '../../services/openapi'
+import { removeToken } from '../../api/token.service'
 
 const NavBar = () => {
-  const userTokenPayload = useSelector((state: RootState) => state.userReducer.userTokenPayload)
+  const isUserSuccessfullyLogged = useSelector((state: RootState) => state.userReducer.userTokenPayload)
+  const role = useSelector((state: RootState) => state.userReducer.userTokenPayload?.role.value)
+
   const loginRegisterModalIsOpen = useSelector((state: RootState) => state.modalsReducer.loginRegisterModalIsOpen)
 
-  const dispatch = useDispatch()
+  const [dropdownItemsForUser, setDropdownItemsForUser] = useState<ReactNode[]>([])
 
-  // const logOut = () => {
-  //   removeToken()
-  //   dispatch(userResetActionCreator())
-  //   history.push('/')
-  // }
+  useEffect(() => {
+    const dropdownItems = []
+    role === Roles.USER && dropdownItems.push(<Link key={USER_ROUTE} to={USER_ROUTE}>User</Link>)
+    role === Roles.OWNER && dropdownItems.push(<Link key={OWNER_ROUTE} to={OWNER_ROUTE}>Owner</Link>)
+    role === Roles.ADMIN && dropdownItems.push(<Link key={ADMIN_ROUTE} to={ADMIN_ROUTE}>Admin</Link>)
+    dropdownItems.push(<div key={'Sign out'} onClick={() => logOut()}>Sign out</div>)
+    setDropdownItemsForUser(dropdownItems)
+  }, [role])
+
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const logOut = () => {
+    removeToken()
+    dispatch(userResetActionCreator())
+    history.push('/')
+  }
 
   const openLoginRegisterModal = () => {
     dispatch(openLoginRegisterModalActionCreator())
@@ -48,11 +69,11 @@ const NavBar = () => {
             </div>
             <div className={styles['navbar__right-items']}>
               {
-                !userTokenPayload
+                !isUserSuccessfullyLogged
                   ? <a className={styles.navbar__item} onClick={openLoginRegisterModal}>Sign in</a>
-                  : <SvgSelector
-                        id={svgIds.USER_ICON}
-                        classNames={styles['navbar__user-icon']}
+                  : <Dropdown
+                        element = {<SvgSelector id={svgIds.USER_ICON} classNames={styles['navbar__user-icon']} />}
+                        items={dropdownItemsForUser}
                     />
               }
             </div>
