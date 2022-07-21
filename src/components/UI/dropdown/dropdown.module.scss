@@ -1,0 +1,41 @@
+@import './../../../styles/common';
+
+.dropdown{
+  position: relative;
+  .dropdown__window{
+    background-color: white;
+    box-shadow: $green_darker 0px 4px 6px 0px;
+    position: absolute;
+    right: -20px;
+    top: 30px + 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 360px;
+    max-height: 320px;
+    min-width: 180px;
+    padding: 8px 0;
+    &::after {
+      content: "";
+      display: block;
+      height: 17px;
+      width: 17px;
+      background: white;
+      box-shadow: $green_darker 0px 4px 6px 0px;
+      transform: rotate(45deg);
+      position: absolute;
+      top: -8px;
+      right: 30px;
+      z-index: -4;
+    }
+  }
+
+  &__item{
+    cursor: pointer;
+    padding: 4px 8px;
+    &:hover{
+      background-color: $green_lighter;
+    }
+  }
+}
