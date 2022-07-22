@@ -1,0 +1,25 @@
+@import './../../../styles/common';
+
+.tabs{
+  display: flex;
+  flex-direction: column;
+  &__navbar {
+    display: flex;
+    height: 60px;
+    border-bottom: gray 1px solid;
+  }
+  &__navbar-item{
+    padding: 16px;
+    cursor: pointer;
+    margin-bottom: -2.5px;
+    &:hover{
+      color: $green;
+    }
+  }
+  &__navbar-active-item{
+    border-bottom: $green 4px solid;
+  }
+  &__content{
+    padding: 16px;
+  }
+}

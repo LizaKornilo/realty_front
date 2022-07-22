@@ -19,6 +19,7 @@ import SvgSelector, { svgIds } from '../svg-selector'
 import Dropdown from '../UI/dropdown/dropdown'
 import { Roles } from '../../services/openapi'
 import { removeToken } from '../../api/token.service'
+import LoginRegisterModalContent from '../auth-components/login-register-modal-content/login-register-modal-content'
 
 const NavBar = () => {
   const isUserSuccessfullyLogged = useSelector((state: RootState) => state.userReducer.userTokenPayload)
@@ -81,7 +82,7 @@ const NavBar = () => {
         </div>
       </div>
        <Modal isOpen={loginRegisterModalIsOpen} close={closeLoginRegisterModal}>
-         loginRegisterModalContent
+         <LoginRegisterModalContent/>
        </Modal>
      </>
   )
