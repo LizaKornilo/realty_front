@@ -1,0 +1,20 @@
+$green_lighter: #c9f3db;
+$green_light: #87e5b0;
+$green: #12cd62;
+$green_dark: #108048;
+$green_darker: #173630;
+$green_text: #3e4f45;
+
+$red: #F6412D;
+$orange: #FF9800;
+$yellow: #FFEC19;
+
+$grey: #808080;
+
+// colors used in PasswordComplexity progressbar, PasswordValidation
+:export {
+  red: $red;
+  orange: $orange;
+  yellow: $yellow;
+  green: $green;
+}
