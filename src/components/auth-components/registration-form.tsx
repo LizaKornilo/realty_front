@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import PasswordComplexity from './password-complexity/password-complexity'
 import PasswordValidation, { passwordValidationRules } from './password-validation/password-validation'
+import Btn from '../UI/btn/btn'
+import styles from './registration-form.module.scss'
 
 const RegistrationForm = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false)
@@ -32,43 +34,51 @@ const RegistrationForm = () => {
   }
 
   return (
-      <form onSubmit={(e) => e.preventDefault()}>
-          <div>
-              <label>Password</label>
-              <button onClick={() => setPasswordShow(!passwordShow)}>show password</button>
-          </div>
-
-          <div style={{ position: 'relative' }}>
-              <input
-              style={{ width: '100%', height: 40, padding: 15 }}
-              placeholder='Create password'
-              type={passwordShow ? 'text' : 'password'}
-              {...register('password', {
-                validate: {
-                  minLength: value => passwordValidationRules.minLength(value),
-                  atLeastOneLowerCase: value => passwordValidationRules.minLowerCase(value),
-                  atLeastOneUpperCase: value => passwordValidationRules.minUpperCase(value),
-                  atLeastOneNumber: value => passwordValidationRules.minNumbers(value),
-                  atLeastOneSpecialCharacter: value => passwordValidationRules.minSpecSymbols(value)
-                }
-              })}
-          />
-              <div style={{ position: 'absolute', right: 10, top: 0, height: 40, display: 'flex', alignItems: 'center' }}>
-                  <PasswordComplexity valueOfNewPassword={getValues().password?.toString()}/>
+      <form className='form' onSubmit={(e) => e.preventDefault()}>
+          <div className='form__field'>
+              <div className={styles['form__pass-label-wrapper']}>
+                  <label className={'label'}>Password</label>
+                  <button onClick={() => setPasswordShow(!passwordShow)}>show password</button>
               </div>
-          </div>
-          <PasswordValidation valueOfNewPassword={getValues().password?.toString()}/>
-          <input
-              placeholder='Repeat password'
-              type={passwordShow ? 'text' : 'password'}
-              {...register('confirmPassword', {
-                validate: (value) => value === getValues().password || 'The passwords do not match'
-              })}
-          />
-          {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
 
-          <input
-              type='submit' onClick={handleSubmit(onSubmit)}
+              <div className={styles['form__pass-input-wrapper']}>
+                  <input
+                      className={`text-input ${errors.password && 'text-input__on-error'} input`}
+                      style={{ paddingRight: 116 }}
+                      placeholder='Create password'
+                      type={passwordShow ? 'text' : 'password'}
+                      {...register('password', {
+                        validate: {
+                          minLength: value => passwordValidationRules.minLength(value),
+                          atLeastOneLowerCase: value => passwordValidationRules.minLowerCase(value),
+                          atLeastOneUpperCase: value => passwordValidationRules.minUpperCase(value),
+                          atLeastOneNumber: value => passwordValidationRules.minNumbers(value),
+                          atLeastOneSpecialCharacter: value => passwordValidationRules.minSpecSymbols(value)
+                        }
+                      })}
+                  />
+                  <div className={styles['form__pass-complexity']}>
+                      <PasswordComplexity valueOfNewPassword={getValues().password?.toString()}/>
+                  </div>
+              </div>
+              <PasswordValidation valueOfNewPassword={getValues().password?.toString()}/>
+
+              <input
+                  className={`text-input ${errors.confirmPassword && 'text-input__on-error'}`}
+                  placeholder='Repeat password'
+                  type={passwordShow ? 'text' : 'password'}
+                  {...register('confirmPassword', {
+                    validate: (value) => value === getValues().password || 'The passwords do not match'
+                  })}
+              />
+              {errors.confirmPassword && <div className={'form__error-msg'}>{errors.confirmPassword.message}</div>}
+          </div>
+
+          <Btn
+              text={'Sign in'}
+              isSubmitType={true}
+              cssClass={'form__submit-btn'}
+              onClick={handleSubmit(onSubmit)}
               disabled={!isDirty || !isValid}
           />
       </form>

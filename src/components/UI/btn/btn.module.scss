@@ -1,0 +1,22 @@
+@import './../../../styles/common';
+
+.btn {
+  height: 45px;
+  border: none;
+  border-radius: 4px;
+  padding: 9px 16px;
+  background-color: $green;
+  color: white;
+  font-family: 'Open Sans Bold';
+  text-align: center;
+  cursor: pointer;
+  &:hover{
+    background-color: $green_dark;
+  }
+}
+
+.btn:disabled,
+.btn[disabled]{
+  background-color: $grey-light;
+  cursor: auto;
+}
