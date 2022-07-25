@@ -4,6 +4,7 @@ import PasswordComplexity from './password-complexity/password-complexity'
 import PasswordValidation, { passwordValidationRules } from './password-validation/password-validation'
 import Btn from '../UI/btn/btn'
 import styles from './registration-form.module.scss'
+import SvgSelector, { svgIds } from '../svg-selector'
 
 const RegistrationForm = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false)
@@ -38,7 +39,11 @@ const RegistrationForm = () => {
           <div className='form__field'>
               <div className={styles['form__pass-label-wrapper']}>
                   <label className={'label'}>Password</label>
-                  <button onClick={() => setPasswordShow(!passwordShow)}>show password</button>
+                  {
+                      passwordShow
+                        ? <SvgSelector id={svgIds.EYE} classNames={`${styles.eye} ${styles['eye-open']}`} onClick={() => setPasswordShow(!passwordShow)}/>
+                        : <SvgSelector id={svgIds.EYE_HIDE} classNames={`${styles.eye} ${styles['eye-hide']}`} onClick={() => setPasswordShow(!passwordShow)}/>
+                  }
               </div>
 
               <div className={styles['form__pass-input-wrapper']}>
