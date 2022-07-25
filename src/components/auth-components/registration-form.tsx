@@ -5,12 +5,15 @@ import PasswordValidation, { passwordValidationRules } from './password-validati
 import Btn from '../UI/btn/btn'
 import styles from './registration-form.module.scss'
 import SvgSelector, { svgIds } from '../svg-selector'
+import { emailRegex } from './regular_expressions'
 
 const RegistrationForm = () => {
   const [passwordShow, setPasswordShow] = useState<boolean>(false)
 
   const DefaultValuesForForm = {
     registration: {
+      name: '',
+      email: '',
       password: '',
       confirmPassword: ''
     }
@@ -37,6 +40,36 @@ const RegistrationForm = () => {
   return (
       <form className='form' onSubmit={(e) => e.preventDefault()}>
           <div className='form__field'>
+              <label className={'label'}>Name</label>
+              <input
+                  className={`text-input ${errors.name && 'text-input__on-error'}`}
+                  placeholder='Your name'
+                  type={'text'}
+                  {...register('name', {
+                    required: 'Name field is required'
+                  })}
+              />
+              {errors.name && <div className={'form__error-msg'}>{errors.name.message}</div>}
+          </div>
+
+          <div className='form__field'>
+              <label className={'label'}>Email</label>
+               <input
+                   className={`text-input ${errors.email && 'text-input__on-error'}`}
+                   placeholder='Your email'
+                   type={'text'}
+                   {...register('email', {
+                     required: 'Email field is required',
+                     pattern: {
+                       value: emailRegex,
+                       message: 'Enter a valid email address'
+                     }
+                   })}
+               />
+               {errors.email && <div className={'form__error-msg'}>{errors.email.message}</div>}
+            </div>
+
+          <div className='form__field'>
               <div className={styles['form__pass-label-wrapper']}>
                   <label className={'label'}>Password</label>
                   {
@@ -48,7 +81,7 @@ const RegistrationForm = () => {
 
               <div className={styles['form__pass-input-wrapper']}>
                   <input
-                      className={`text-input ${errors.password && 'text-input__on-error'} input`}
+                      className={`text-input ${errors.password && 'text-input__on-error'}`}
                       style={{ paddingRight: 116 }}
                       placeholder='Create password'
                       type={passwordShow ? 'text' : 'password'}

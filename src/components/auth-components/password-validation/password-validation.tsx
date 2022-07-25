@@ -1,11 +1,11 @@
 import React from 'react'
 import styles from './password-validation.module.scss'
-
-const atLeastOneLowerCaseRegex = /^(?=.*?[a-z])/
-const atLeastOneUpperCaseRegex = /^(?=.*?[A-Z])/
-const atLeastOneNumberRegex = /\d/
-// eslint-disable-next-line
-const atLeastOneSpecialCharacterRegex = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/
+import {
+  atLeastOneLowerCaseRegex,
+  atLeastOneNumberRegex,
+  atLeastOneSpecialCharacterRegex,
+  atLeastOneUpperCaseRegex
+} from '../regular_expressions'
 
 export const passwordValidationRules = {
   minLength: (password: string) => password?.length >= 8,
